@@ -1,0 +1,21 @@
+actions:
+- name: submitTimesheet
+  definition:
+    type: mutation
+    kind: synchronous
+    handler: http://localhost:3000/submitTimesheet
+custom_types:
+  enums: []
+  input_objects:
+  - name: SampleInput
+  objects:
+  - name: InsertTimesheetActionOutput
+    relationships:
+    - remote_table:
+        schema: public
+        name: timesheet
+      name: timesheet
+      type: object
+      field_mapping:
+        timesheetId: id
+  scalars: []

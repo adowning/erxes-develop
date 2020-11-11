@@ -1,0 +1,18 @@
+version: 2
+endpoint: https://actual-garfish-13.hasura.app
+admin_secret: asdfasdf
+api_paths:
+  query: v1/query
+  graphql: v1/graphql
+  config: v1alpha1/config
+  pg_dump: v1alpha1/pg_dump
+  version: v1/version
+metadata_directory: hasura/metadata
+migrations_directory: hasura/migrations
+seeds_directory: seeds
+actions:
+  # kind: synchronous
+  handler_webhook_baseurl: http://localhost:3000
+  codegen:
+    framework: typescript-express
+    output_dir: hasura/metadata

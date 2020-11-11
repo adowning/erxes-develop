@@ -1,0 +1,14 @@
+type Mutation {
+	# Define your action as a mutation here
+	submitTimesheet (arg1: SampleInput!): InsertTimesheetActionOutput
+}
+
+
+input SampleInput {
+	employeeId: String!
+}
+
+type InsertTimesheetActionOutput {
+  timesheetId : uuid!
+}
+

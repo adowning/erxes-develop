@@ -1,0 +1,23 @@
+fragment userFragment on user {
+    id
+    createdAt
+    firstName
+    lastName
+    email
+    imageUrl
+    preferredComponentLayout
+    preferredLanguage
+    thirdPartyId
+    username
+    tasks {
+      id
+    }
+    employee {
+      id
+      isActive
+      totalWorkHours
+      contactId
+      employeeLevel
+      description
+    }
+}

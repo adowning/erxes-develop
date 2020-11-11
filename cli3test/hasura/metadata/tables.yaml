@@ -1,0 +1,282 @@
+- table:
+    schema: public
+    name: activity
+  object_relationships:
+  - name: employee
+    using:
+      foreign_key_constraint_on: employeeId
+  - name: task
+    using:
+      foreign_key_constraint_on: taskId
+  - name: time_slot
+    using:
+      foreign_key_constraint_on: timeSlotId
+- table:
+    schema: public
+    name: appointment_employee
+  object_relationships:
+  - name: employee_appointment
+    using:
+      foreign_key_constraint_on: employeeAppointmentId
+- table:
+    schema: public
+    name: availability_slot
+  object_relationships:
+  - name: employee
+    using:
+      foreign_key_constraint_on: employeeId
+- table:
+    schema: public
+    name: contact
+  array_relationships:
+  - name: employees
+    using:
+      foreign_key_constraint_on:
+        column: contactId
+        table:
+          schema: public
+          name: employee
+- table:
+    schema: public
+    name: employee
+  object_relationships:
+  - name: contact
+    using:
+      foreign_key_constraint_on: contactId
+  - name: user
+    using:
+      foreign_key_constraint_on: userId
+  array_relationships:
+  - name: activities
+    using:
+      foreign_key_constraint_on:
+        column: employeeId
+        table:
+          schema: public
+          name: activity
+  - name: availability_slots
+    using:
+      foreign_key_constraint_on:
+        column: employeeId
+        table:
+          schema: public
+          name: availability_slot
+  - name: employee_appointments
+    using:
+      foreign_key_constraint_on:
+        column: employeeId
+        table:
+          schema: public
+          name: employee_appointment
+  - name: event_types
+    using:
+      foreign_key_constraint_on:
+        column: employeeId
+        table:
+          schema: public
+          name: event_type
+  - name: time_logs
+    using:
+      foreign_key_constraint_on:
+        column: employeeId
+        table:
+          schema: public
+          name: time_log
+  - name: timesheets
+    using:
+      foreign_key_constraint_on:
+        column: employeeId
+        table:
+          schema: public
+          name: timesheet
+  - name: timesheetsByApprovedbyid
+    using:
+      foreign_key_constraint_on:
+        column: approvedById
+        table:
+          schema: public
+          name: timesheet
+  - name: time_slots
+    using:
+      foreign_key_constraint_on:
+        column: employeeId
+        table:
+          schema: public
+          name: time_slot
+- table:
+    schema: public
+    name: employee_appointment
+  object_relationships:
+  - name: employee
+    using:
+      foreign_key_constraint_on: employeeId
+  array_relationships:
+  - name: appointment_employees
+    using:
+      foreign_key_constraint_on:
+        column: employeeAppointmentId
+        table:
+          schema: public
+          name: appointment_employee
+- table:
+    schema: public
+    name: event_type
+  object_relationships:
+  - name: employee
+    using:
+      foreign_key_constraint_on: employeeId
+- table:
+    schema: public
+    name: role
+  array_relationships:
+  - name: users
+    using:
+      foreign_key_constraint_on:
+        column: roleId
+        table:
+          schema: public
+          name: user
+- table:
+    schema: public
+    name: screenshot
+  object_relationships:
+  - name: time_slot
+    using:
+      foreign_key_constraint_on: timeSlotId
+- table:
+    schema: public
+    name: task
+  object_relationships:
+  - name: user
+    using:
+      foreign_key_constraint_on: creatorId
+  array_relationships:
+  - name: activities
+    using:
+      foreign_key_constraint_on:
+        column: taskId
+        table:
+          schema: public
+          name: activity
+  - name: time_logs
+    using:
+      foreign_key_constraint_on:
+        column: taskId
+        table:
+          schema: public
+          name: time_log
+- table:
+    schema: public
+    name: time_log
+  object_relationships:
+  - name: employee
+    using:
+      foreign_key_constraint_on: employeeId
+  - name: task
+    using:
+      foreign_key_constraint_on: taskId
+  - name: timesheet
+    using:
+      foreign_key_constraint_on: timesheetId
+  array_relationships:
+  - name: time_slot_time_logs
+    using:
+      foreign_key_constraint_on:
+        column: timeLogId
+        table:
+          schema: public
+          name: time_slot_time_logs
+- table:
+    schema: public
+    name: time_slot
+  object_relationships:
+  - name: employee
+    using:
+      foreign_key_constraint_on: employeeId
+  array_relationships:
+  - name: activities
+    using:
+      foreign_key_constraint_on:
+        column: timeSlotId
+        table:
+          schema: public
+          name: activity
+  - name: screenshots
+    using:
+      foreign_key_constraint_on:
+        column: timeSlotId
+        table:
+          schema: public
+          name: screenshot
+  - name: time_slot_minutes
+    using:
+      foreign_key_constraint_on:
+        column: timeSlotId
+        table:
+          schema: public
+          name: time_slot_minute
+  - name: time_slot_time_logs
+    using:
+      foreign_key_constraint_on:
+        column: timeSlotId
+        table:
+          schema: public
+          name: time_slot_time_logs
+- table:
+    schema: public
+    name: time_slot_minute
+  object_relationships:
+  - name: time_slot
+    using:
+      foreign_key_constraint_on: timeSlotId
+- table:
+    schema: public
+    name: time_slot_time_logs
+  object_relationships:
+  - name: time_log
+    using:
+      foreign_key_constraint_on: timeLogId
+  - name: time_slot
+    using:
+      foreign_key_constraint_on: timeSlotId
+- table:
+    schema: public
+    name: timesheet
+  object_relationships:
+  - name: employee
+    using:
+      foreign_key_constraint_on: approvedById
+  - name: employeeByEmployeeid
+    using:
+      foreign_key_constraint_on: employeeId
+  array_relationships:
+  - name: time_logs
+    using:
+      foreign_key_constraint_on:
+        column: timesheetId
+        table:
+          schema: public
+          name: time_log
+- table:
+    schema: public
+    name: user
+  object_relationships:
+  - name: employee
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: employee
+        column_mapping:
+          id: userId
+  - name: role
+    using:
+      foreign_key_constraint_on: roleId
+  array_relationships:
+  - name: tasks
+    using:
+      foreign_key_constraint_on:
+        column: creatorId
+        table:
+          schema: public
+          name: task

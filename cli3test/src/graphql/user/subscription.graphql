@@ -1,0 +1,6 @@
+#import "./fragment.graphql"
+subscription watchOneUser($id: uuid!) {
+    user(where: {id: {_eq:  $id}}) {
+    id
+  }
+}

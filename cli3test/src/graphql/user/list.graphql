@@ -1,0 +1,10 @@
+
+#import "./fragment.graphql"
+query listAllUsers {
+  user(order_by: { lastName: asc }) {
+    id
+    lastName
+    firstName
+
+  }
+}
